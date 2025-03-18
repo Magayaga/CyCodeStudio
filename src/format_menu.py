@@ -1,6 +1,6 @@
 #**
 #
-#  Copyright 2022-2023 Cyril John Magayaga (https://www.github.com/magayaga)
+#  Copyright 2022-2025 Cyril John Magayaga (https://www.github.com/magayaga)
 #  CyCode Studio (v2.0)
 # 
 # *#
@@ -10,7 +10,6 @@ from tkinter.font import Font, families
 from tkinter.scrolledtext import *
 
 import time
-
 
 class Format():
     def __init__(self, text):
@@ -85,7 +84,25 @@ class Format():
         year = str(full_date.tm_year)
         date = day + '/' + month + '/' + year
         self.text.insert(INSERT, date, "a")
+    
+    def addTime(self):
+        full_time = time.localtime()
+        hour = str(full_time.tm_hour).zfill(2)
+        minute = str(full_time.tm_min).zfill(2)
+        second = str(full_time.tm_sec).zfill(2)
+        current_time = f"{hour}:{minute}:{second}"
+        self.text.insert(INSERT, current_time, "a")
 
+    def addDateTime(self):
+        full_date = time.localtime()
+        day = str(full_date.tm_mday)
+        month = str(full_date.tm_mon)
+        year = str(full_date.tm_year)
+        hour = str(full_date.tm_hour).zfill(2)
+        minute = str(full_date.tm_min).zfill(2)
+        second = str(full_date.tm_sec).zfill(2)
+        date_time = f"{day}/{month}/{year} {hour}:{minute}:{second}"
+        self.text.insert(INSERT, date_time, "a")
 
 def main(root, text, menubar):
     objFormat = Format(text)
@@ -94,8 +111,7 @@ def main(root, text, menubar):
     font = Font(family="JetBrains Mono", size=10)
     text.configure(font=font)
 
-    formatMenu = Menu(menubar)
-
+    formatMenu = Menu(menubar, tearoff=0)
     fsubmenu = Menu(formatMenu, tearoff=0)
     ssubmenu = Menu(formatMenu, tearoff=0)
 
@@ -116,6 +132,8 @@ def main(root, text, menubar):
     formatMenu.add_command(label="Overstrike", command=objFormat.overstrike, accelerator="Ctrl+T")
     formatMenu.add_separator()
     formatMenu.add_command(label="Add Date", command=objFormat.addDate)
+    formatMenu.add_command(label="Add Time", command=objFormat.addTime)
+    formatMenu.add_command(label="Add Date and Time", command=objFormat.addDateTime)
     menubar.add_cascade(label="Format", menu=formatMenu)
 
     root.bind_all("<Control-b>", objFormat.bold)
@@ -127,7 +145,6 @@ def main(root, text, menubar):
     root.resizable(True, True)
 
     root.config(menu=menubar)
-
 
 if __name__ == "__main__":
     print("Please run 'format_menu.py'")

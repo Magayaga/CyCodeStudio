@@ -1,6 +1,6 @@
 #**
 #
-#  Copyright 2022-2023 Cyril John Magayaga (https://www.github.com/magayaga)
+#  Copyright 2022-2025 Cyril John Magayaga (https://www.github.com/magayaga)
 #  CyCode Studio (v2.0)
 # 
 # *#
@@ -8,7 +8,6 @@ from tkinter import *
 from tkinter.simpledialog import *
 from tkinter.filedialog import *
 from tkinter.messagebox import *
-
 
 class Edit():
     def popup(self, event):
@@ -56,12 +55,11 @@ class Edit():
         self.text = text
         self.rightClick = Menu(root)
 
-
 def main(root, text, menubar):
 
     objEdit = Edit(text, root)
 
-    editmenu = Menu(menubar)
+    editmenu = Menu(menubar, tearoff=0)
     editmenu.add_command(label="Undo", command=objEdit.undo, accelerator="Ctrl+Z")
     editmenu.add_command(label="Redo", command=objEdit.redo, accelerator="Ctrl+Y")
     editmenu.add_separator()
