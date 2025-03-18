@@ -25,4 +25,5 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
+        pip install idelib tkinter 
         python src/CyCodeStudio.py
